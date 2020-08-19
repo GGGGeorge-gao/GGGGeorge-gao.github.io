@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://GGGGeorge-gao.github.io.git.com">
-  <title>Archives | Gabriel&#39;s blog</title>
+  <title>ArrayList源码解析 | Gabriel&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="入门的开发者狂热的学习者摄影爱好者~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gabriel&#39;s blog">
-<meta property="og:url" content="http://ggggeorge-gao.github.io.git.com/archives/index.html">
+  <meta name="description" content="ArrayList  ArrayList 是最常用的 List 实现类，它适合随机查找和遍历，但不适合插入和删除。 Vector 和 ArrayList 一样，但Vector 不支持线程同步，但线程安全，ArrayList 线程不安全   ArrayList 非线程安全，底层是一个 Object[ ] ，添加到ArrayList中的数据保存在了elementData属性中。所以 ArrayList">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ArrayList源码解析">
+<meta property="og:url" content="http://ggggeorge-gao.github.io.git.com/2020/04/12/ArrayList/index.html">
 <meta property="og:site_name" content="Gabriel&#39;s blog">
-<meta property="og:description" content="入门的开发者狂热的学习者摄影爱好者~">
+<meta property="og:description" content="ArrayList  ArrayList 是最常用的 List 实现类，它适合随机查找和遍历，但不适合插入和删除。 Vector 和 ArrayList 一样，但Vector 不支持线程同步，但线程安全，ArrayList 线程不安全   ArrayList 非线程安全，底层是一个 Object[ ] ，添加到ArrayList中的数据保存在了elementData属性中。所以 ArrayList">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-19T17:09:40.000Z">
 <meta property="article:author" content="Gabriel">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Gabriel&#39;s blog" type="application/atom+xml">
@@ -162,166 +166,113 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ArrayList" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ArrayList源码解析
+    </h1>
+  
+
+        
+        <a href="/2020/04/12/ArrayList/" class="archive-article-date">
+  	<time datetime="2020-04-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-12</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><blockquote>
+<ul>
+<li>ArrayList 是最常用的 List 实现类，它适合随机查找和遍历，但不适合插入和删除。</li>
+<li>Vector 和 ArrayList 一样，但Vector 不支持线程同步，但线程安全，ArrayList 线程不安全</li>
+</ul>
+</blockquote>
+<p>ArrayList 非线程安全，底层是一个 Object[ ] ，添加到ArrayList中的数据保存在了elementData属性中。所以 ArrayList 具有数组的查询速度快的优点以及增删速度慢的缺点。</p>
+<a id="more"></a>
+
+<ul>
+<li>当调用<code>new ArrayList&lt;&gt;()</code>时，将一个空数组{}赋值给了 elementData，这个时候集合的长度size为默认长度0；</li>
+<li>当调用<code>new ArrayList&lt;&gt;(100)</code>时，根据传入的长度，new一个Object[100]赋值给 elementData，当然如果玩儿的话，传了一个0，那么将一个空数组{}赋值给了elementData；</li>
+<li>当调用 new ArrayList&lt;&gt;(new HashSet()) 时，根据源码，我们可知，可以传递任何实现了Collection接口的类，将传递的集合调用 toArray() 方法转为数组内赋值给elementData;</li>
+</ul>
+<h3 id="ArrayList常用方法"><a href="#ArrayList常用方法" class="headerlink" title="ArrayList常用方法"></a>ArrayList常用方法</h3><blockquote>
+<p>ArrayList有很多常用方法，add，addAll，set，get，remove，size，isEmpty等</p>
+</blockquote>
+<h4 id="add-E-element"><a href="#add-E-element" class="headerlink" title="add(E element)"></a>add(E element)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// Increments modCount!!</span></span><br><span class="line">    elementData[size++] = e;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先通过 <code>ensureCapacityInternal(size + 1)</code> 来保证底层 Object[ ] 数组有足够的空间存放添加的数据，然后将添加的数据存放到数组对应的位置上，我们看一下是怎么保证数组有足够的空间？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</span><br><span class="line">        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">    &#125;</span><br><span class="line">    ensureExplicitCapacity(minCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureExplicitCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)</span><br><span class="line">        grow(minCapacity);   <span class="comment">// 数组扩容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先确定 Object[] 足够存放添加数据的最小容量，然后通过 <code>grow(int minCapacity)</code> 来进行数组扩容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">    <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>扩容规则为:warning:：*<em>数组当前足够的最小容量 * 1.5*</em>，有最大值限制。</p>
+<h4 id="set-int-index-E-element"><a href="#set-int-index-E-element" class="headerlink" title="set(int index, E element)"></a>set(int index, E element)</h4><p>由于 ArrayList 底层由数组实现，set实现非常简单，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span> </span>&#123;</span><br><span class="line">    rangeCheck(index);</span><br><span class="line"></span><br><span class="line">    E oldValue = elementData(index);</span><br><span class="line">    elementData[index] = element;</span><br><span class="line">    <span class="keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="get-int-index"><a href="#get-int-index" class="headerlink" title="get(int index)"></a>get(int index)</h4><p>ArrayList 中 get 方法也非常简单，通过下表查找即可，前提是需要判断传入的数组下标是否越界。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    rangeCheck(index);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> elementData(index);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">E <span class="title">elementData</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (E) elementData[index];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="remove-int-index"><a href="#remove-int-index" class="headerlink" title="remove(int index)"></a>remove(int index)</h4><p>首先获取待删除的元素，并最终返回。其次计算了需要移动的位数 <strong>size - index - 1</strong>，然后将原本位置的元素设为 null</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    rangeCheck(index);   <span class="comment">// 判断数组越界</span></span><br><span class="line"></span><br><span class="line">    modCount++;</span><br><span class="line">    E oldValue = elementData(index);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> numMoved = size - index - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)</span><br><span class="line">        System.arraycopy(elementData, index+<span class="number">1</span>, elementData, index, numMoved);</span><br><span class="line">    elementData[--size] = <span class="keyword">null</span>; <span class="comment">// clear to let GC do its work</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="remove-Object-o"><a href="#remove-Object-o" class="headerlink" title="remove(Object o)"></a>remove(Object o)</h4><p>删除 ArrayList 中的值对象，其实和通过下标删除很相似，遍历底层数组 elementData ，通过 equals() 方法或 == （特殊情况）来找到要删除的元素，获取其索引值，一样的方式删除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (o == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; size; index++)</span><br><span class="line">            <span class="keyword">if</span> (elementData[index] == <span class="keyword">null</span>) &#123;</span><br><span class="line">                fastRemove(index);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; size; index++)</span><br><span class="line">            <span class="keyword">if</span> (o.equals(elementData[index])) &#123;</span><br><span class="line">                fastRemove(index);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fastRemove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="keyword">int</span> numMoved = size - index - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)</span><br><span class="line">        System.arraycopy(elementData, index+<span class="number">1</span>, elementData, index,</span><br><span class="line">                         numMoved);</span><br><span class="line">    elementData[--size] = <span class="keyword">null</span>; <span class="comment">// clear to let GC do its work</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><p>size() : 获取集合长度，通过定义在ArrayList中的私有变量size得到</p>
+<p>isEmpty()：是否为空，通过定义在ArrayList中的私有变量size得到</p>
+<p>contains(Object o)：是否包含某个元素，通过遍历底层数组elementData，通过equals或==进行判断</p>
+<p>clear()：集合清空，通过遍历底层数组elementData，设置为null</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢你请我喝咖啡<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechat.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/19/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-08-18T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/19/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E8%AF%A6%E8%A7%A3/">Java并发编程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">并发</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/18/LeetCode%E9%A2%98%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-08-17T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/18/LeetCode%E9%A2%98%E8%A7%A3/">我的LeetCode题解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/23/LeetCode297.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="archive-article-date">
-  	<time datetime="2020-07-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/23/LeetCode297.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/">LeetCode297. 二叉树的序列化与反序列化——层序遍历</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/09/%E5%AD%97%E5%85%B8%E6%A0%91Trie/" class="archive-article-date">
-  	<time datetime="2020-07-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/09/%E5%AD%97%E5%85%B8%E6%A0%91Trie/">字典树Trie——一种常见的数据结构</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -337,274 +288,137 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://ggggeorge-gao.github.io.git.com/2020/04/12/ArrayList/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/03/Spring%20IoC/" class="archive-article-date">
-  	<time datetime="2020-07-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-03</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/04/17/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JVM学习笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/26/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%20I%20%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CoreJava I 读书笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/03/Spring%20IoC/">Spring IoC的一二见解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList"><span class="toc-number">1.</span> <span class="toc-text">ArrayList</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ArrayList%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">ArrayList常用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#add-E-element"><span class="toc-number">1.1.1.</span> <span class="toc-text">add(E element)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#set-int-index-E-element"><span class="toc-number">1.1.2.</span> <span class="toc-text">set(int index, E element)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get-int-index"><span class="toc-number">1.1.3.</span> <span class="toc-text">get(int index)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#remove-int-index"><span class="toc-number">1.1.4.</span> <span class="toc-text">remove(int index)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#remove-Object-o"><span class="toc-number">1.1.5.</span> <span class="toc-text">remove(Object o)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.6.</span> <span class="toc-text">其他方法</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/02/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2020-07-01T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-02</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/02/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">单例模式(Singleton)详解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/12/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B01%E2%80%94%E2%80%94Java%E5%AD%97%E7%AC%A6%E4%B8%B2==%E4%B8%8Eequals/" class="archive-article-date">
-  	<time datetime="2020-06-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/12/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B01%E2%80%94%E2%80%94Java%E5%AD%97%E7%AC%A6%E4%B8%B2==%E4%B8%8Eequals/">踩坑日记1——Java字符串==与equals</a>
-    </h1>
+  <div id="SOHUCS" sid="ArrayList" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">踩坑日记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/15/%E6%95%A3%E5%88%97%E8%A1%A8/" class="archive-article-date">
-  	<time datetime="2020-05-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/15/%E6%95%A3%E5%88%97%E8%A1%A8/">关于散列表的一二见解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">哈希</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/05/Java%E5%A0%86%E5%86%85%E5%AD%98%E5%85%B1%E4%BA%AB%E5%90%97%EF%BC%9F/" class="archive-article-date">
-  	<time datetime="2020-05-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/05/Java%E5%A0%86%E5%86%85%E5%AD%98%E5%85%B1%E4%BA%AB%E5%90%97%EF%BC%9F/">Java 堆内存是线程共享的吗？</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/17/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-04-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/17/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">JVM学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -628,8 +442,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

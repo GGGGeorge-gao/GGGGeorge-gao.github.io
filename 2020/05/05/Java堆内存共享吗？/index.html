@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://GGGGeorge-gao.github.io.git.com">
-  <title>Archives | Gabriel&#39;s blog</title>
+  <title>Java 堆内存是线程共享的吗？ | Gabriel&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="入门的开发者狂热的学习者摄影爱好者~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gabriel&#39;s blog">
-<meta property="og:url" content="http://ggggeorge-gao.github.io.git.com/archives/index.html">
+  <meta name="description" content="Java 堆内存是线程共享的吗？ 本文部分思路来自作者Hollis：原文链接  问题引出：1、堆是线程共享的内存区域，栈是线程独享的区域。 2、堆主要存放对象实例，栈中主要存放各种基本数据类型、对象的引用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 堆内存是线程共享的吗？">
+<meta property="og:url" content="http://ggggeorge-gao.github.io.git.com/2020/05/05/Java%E5%A0%86%E5%86%85%E5%AD%98%E5%85%B1%E4%BA%AB%E5%90%97%EF%BC%9F/index.html">
 <meta property="og:site_name" content="Gabriel&#39;s blog">
-<meta property="og:description" content="入门的开发者狂热的学习者摄影爱好者~">
+<meta property="og:description" content="Java 堆内存是线程共享的吗？ 本文部分思路来自作者Hollis：原文链接  问题引出：1、堆是线程共享的内存区域，栈是线程独享的区域。 2、堆主要存放对象实例，栈中主要存放各种基本数据类型、对象的引用。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.hollischuang.com/wp-content/uploads/2020/03/tlab.png">
+<meta property="og:image" content="http://www.hollischuang.com/wp-content/uploads/2020/03/tlab1.png">
+<meta property="article:published_time" content="2020-05-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-19T17:05:44.000Z">
 <meta property="article:author" content="Gabriel">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.hollischuang.com/wp-content/uploads/2020/03/tlab.png">
   
     <link rel="alternative" href="/atom.xml" title="Gabriel&#39;s blog" type="application/atom+xml">
   
@@ -162,376 +169,106 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Java堆内存共享吗？" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/19/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-08-18T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/19/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E8%AF%A6%E8%A7%A3/">Java并发编程</a>
+    <h1 class="article-title" itemprop="name">
+      Java 堆内存是线程共享的吗？
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">并发</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/18/LeetCode%E9%A2%98%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-08-17T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/18/LeetCode%E9%A2%98%E8%A7%A3/">我的LeetCode题解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/23/LeetCode297.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="archive-article-date">
-  	<time datetime="2020-07-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/23/LeetCode297.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/">LeetCode297. 二叉树的序列化与反序列化——层序遍历</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/09/%E5%AD%97%E5%85%B8%E6%A0%91Trie/" class="archive-article-date">
-  	<time datetime="2020-07-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/09/%E5%AD%97%E5%85%B8%E6%A0%91Trie/">字典树Trie——一种常见的数据结构</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/03/Spring%20IoC/" class="archive-article-date">
-  	<time datetime="2020-07-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/03/Spring%20IoC/">Spring IoC的一二见解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/02/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2020-07-01T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/02/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">单例模式(Singleton)详解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/12/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B01%E2%80%94%E2%80%94Java%E5%AD%97%E7%AC%A6%E4%B8%B2==%E4%B8%8Eequals/" class="archive-article-date">
-  	<time datetime="2020-06-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/12/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B01%E2%80%94%E2%80%94Java%E5%AD%97%E7%AC%A6%E4%B8%B2==%E4%B8%8Eequals/">踩坑日记1——Java字符串==与equals</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">踩坑日记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/15/%E6%95%A3%E5%88%97%E8%A1%A8/" class="archive-article-date">
-  	<time datetime="2020-05-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/15/%E6%95%A3%E5%88%97%E8%A1%A8/">关于散列表的一二见解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">哈希</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/05/Java%E5%A0%86%E5%86%85%E5%AD%98%E5%85%B1%E4%BA%AB%E5%90%97%EF%BC%9F/" class="archive-article-date">
+        
+        <a href="/2020/05/05/Java%E5%A0%86%E5%86%85%E5%AD%98%E5%85%B1%E4%BA%AB%E5%90%97%EF%BC%9F/" class="archive-article-date">
   	<time datetime="2020-05-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/05/Java%E5%A0%86%E5%86%85%E5%AD%98%E5%85%B1%E4%BA%AB%E5%90%97%EF%BC%9F/">Java 堆内存是线程共享的吗？</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Java-堆内存是线程共享的吗？"><a href="#Java-堆内存是线程共享的吗？" class="headerlink" title="Java 堆内存是线程共享的吗？"></a>Java 堆内存是线程共享的吗？</h2><blockquote>
+<p>本文部分思路来自作者Hollis：<a target="_blank" rel="noopener" href="http://www.hollischuang.com/archives/4510">原文链接</a></p>
+</blockquote>
+<h3 id="问题引出："><a href="#问题引出：" class="headerlink" title="问题引出："></a>问题引出：</h3><p><strong>1、堆是线程共享的内存区域，栈是线程独享的区域。</strong></p>
+<p><strong>2、堆主要存放对象实例，栈中主要存放各种基本数据类型、对象的引用。</strong></p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<p>以上两个结论其实不完全正确。</p>
+<p>在解答之前，先想想<strong>Java 对象的内存分配过程是如何保证线程安全的？</strong></p>
+<p>对象的内存分配过程中，主要是对象的引用指向这个内存区域，然后进行初始化操作。</p>
+<p>但是，因为堆是全局共享的，因此在同一时间，可能有多个线程在堆上申请空间，那么，在并发场景中，如果两个线程先后把对象引用指向了同一个内存区域，怎么办。</p>
+<p>而Java对象的分配是Java中的高频操作，所有，人们想到另外一个办法来提升效率。这里我们重点说一个Hotspot虚拟机的方案：</p>
+<blockquote>
+<p>每个线程在Java堆中预先分配一小块内存，然后再给对象分配内存的时候，直接在自己这块”私有”内存中分配，当这部分区域用完之后，再分配新的”私有”内存。</p>
+</blockquote>
+<p>这种方案被称之为 <strong><em>TLAB</em></strong> 分配，即 Thread Local Allocation Buffer 。这部分 Buffer 是从堆中划分出来的，但是是<strong>本地线程共享</strong>的。</p>
+<h3 id="什么是-TLAB"><a href="#什么是-TLAB" class="headerlink" title="什么是 TLAB"></a>什么是 <em>TLAB</em></h3><p>TLAB是虚拟机在堆内存的 Eden 划分出来的一块专用空间，是线程专属的。在虚拟机的TLAB功能启动的情况下，在线程初始化时，虚拟机会为每个线程分配一块TLAB空间，只给当前线程使用，这样每个线程都单独拥有一个空间，如果需要分配内存，就在自己的空间上分配，这样就不存在竞争的情况，可以大大提升分配效率。</p>
+<p>所以说，因为有了TLAB技术，堆内存并不是完完全全的线程共享，其 Eden 区域中还是有一部分空间是分配给线程独享的。</p>
+<img src="http://www.hollischuang.com/wp-content/uploads/2020/03/tlab.png" alt="img" style="zoom: 67%;" />
+
+<p>在读取、移动等操作上确实是线程共享的，但在<strong>内存分配</strong>上，是<strong>线程独享</strong>的。</p>
+<p>也就是说，虽然每个线程在初始化时都会去堆内存中申请一块TLAB，并不是说这个TLAB区域的内存其他线程就完全无法访问了，其他线程的读取还是可以的，只不过无法在这个区域中分配内存而已。</p>
+<p>并且，在TLAB分配之后，并不影响对象的移动和回收，也就是说，虽然对象刚开始可能通过TLAB分配内存，存放在Eden区，但是还是会被垃圾回收或者被移到Survivor Space、Old Gen等。</p>
+<img src="http://www.hollischuang.com/wp-content/uploads/2020/03/tlab1.png" alt="img" style="zoom: 50%;" />
+
+<p>还有一点需要注意的是，我们说TLAB是在eden区分配的，因为eden区域本身就不太大，而且TLAB空间的内存也非常小，默认情况下仅占有整个Eden空间的1%。所以，必然存在一些大对象是无法在TLAB直接分配。</p>
+<p>遇到TLAB中无法分配的大对象，对象还是可能在Eden区或者老年代等进行分配的，但是这种分配就需要进行同步控制，这也是为什么我们经常说：<strong>小的对象比大的对象分配起来更加高效。</strong></p>
+<h3 id="TLAB带来的问题"><a href="#TLAB带来的问题" class="headerlink" title="TLAB带来的问题"></a>TLAB带来的问题</h3><p>虽然在一定程度上，TLAB大大的提升了对象的分配速度，但是TLAB并不是就没有任何问题的。</p>
+<p>前面我们说过，因为TLAB内存区域并不是很大，所以，有可能会经常出现不够的情况。在《实战Java虚拟机》中有这样一个例子：</p>
+<p>比如一个线程的TLAB空间有100KB，其中已经使用了80KB，当需要再分配一个30KB的对象时，就无法直接在TLAB中分配，遇到这种情况时，有两种处理方案：</p>
+<p>1、如果一个对象需要的空间大小超过TLAB中剩余的空间大小，则直接在堆内存中对该对象进行内存分配。</p>
+<p>2、如果一个对象需要的空间大小超过TLAB中剩余的空间大小，则废弃当前TLAB，重新申请TLAB空间再次进行内存分配。</p>
+<p>以上两个方案各有利弊，如果采用方案1，那么就可能存在着一种极端情况，就是TLAB只剩下1KB，就会导致后续需要分配的大多数对象都需要在堆内存直接分配。</p>
+<p>如果采用方案2，也有可能存在频繁废弃TLAB，频繁申请TLAB的情况，而我们知道，虽然在TLAB上分配内存是线程独享的，但是TLAB内存自己从堆中划分出来的过程确实可能存在冲突的，所以，TLAB的分配过程其实也是需要并发控制的。而频繁的TLAB分配就失去了使用TLAB的意义。</p>
+<p><strong>为了解决这两个方案存在的问题，虚拟机定义了一个refill_waste的值，这个值可以翻译为“最大浪费空间”。</strong></p>
+<p>当请求分配的内存大于refill_waste的时候，会选择在堆内存中分配。若小于refill_waste值，则会废弃当前TLAB，重新创建TLAB进行对象内存分配。</p>
+<p>前面的例子中，TLAB总空间100KB，使用了80KB，剩余20KB，如果设置的refill_waste的值为25KB，那么如果新对象的内存大于25KB，则直接堆内存分配，如果小于25KB，则会废弃掉之前的那个TLAB，重新分配一个TLAB空间，给新对象分配内存。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>为了保证对象的内存分配过程中的线程安全性，Hotspot虚拟机提供了一种叫做TLAB(Thread Local Allocation Buffer)的技术。</strong></p>
+<p>在线程初始化时，虚拟机会为每个线程分配一块TLAB空间，只给当前线程使用，当需要分配内存时，就在自己的空间上分配，这样就不存在竞争的情况，可以大大提升分配效率。</p>
+<p><strong>所以，“堆是线程共享的内存区域”这句话并不完全正确，因为TLAB是堆内存的一部分，他在读取上确实是线程共享的，但是在内存分分配上，是线程独享的。</strong></p>
+<p>TLAB的空间其实并不大，所以大对象还是可能需要在堆内存中直接分配。那么，对象的内存分配步骤就是先尝试TLAB分配，空间不足之后，再判断是否应该直接进入老年代，然后再确定是再Eden分配还是在老年代分配。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢你请我喝咖啡<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechat.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -547,64 +284,137 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://ggggeorge-gao.github.io.git.com/2020/05/05/Java%E5%A0%86%E5%86%85%E5%AD%98%E5%85%B1%E4%BA%AB%E5%90%97%EF%BC%9F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/17/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-04-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/05/15/%E6%95%A3%E5%88%97%E8%A1%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          关于散列表的一二见解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/17/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/17/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">JVM学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E5%A0%86%E5%86%85%E5%AD%98%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E7%9A%84%E5%90%97%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">Java 堆内存是线程共享的吗？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%BC%95%E5%87%BA%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">问题引出：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-TLAB"><span class="toc-number">1.2.</span> <span class="toc-text">什么是 TLAB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLAB%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">TLAB带来的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+  <div id="SOHUCS" sid="Java堆内存共享吗？" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
+  
+
+  
+
   
 
 
@@ -628,8 +438,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
