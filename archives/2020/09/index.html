@@ -6,21 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://GGGGeorge-gao.github.io.git.com">
-  <title>关于 Spring 的一些随笔 &amp; 踩坑日记 | Gabriel&#39;s blog</title>
+  <title>Archives: 2020/9 | Gabriel&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="关于 Spring 的一些随笔 &amp; 踩坑日记 写在前面在平时日常开发中，总会遇到一些问题和值得注意的地方，及时mark下来以防下一次还遇到会忘记。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="关于 Spring 的一些随笔 &amp; 踩坑日记">
-<meta property="og:url" content="http://ggggeorge-gao.github.io.git.com/2020/08/10/Spring%20%E9%9A%8F%E7%AC%94&%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/index.html">
+  <meta name="description" content="入门的开发者狂热的学习者摄影爱好者~">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gabriel&#39;s blog">
+<meta property="og:url" content="http://ggggeorge-gao.github.io.git.com/archives/2020/09/index.html">
 <meta property="og:site_name" content="Gabriel&#39;s blog">
-<meta property="og:description" content="关于 Spring 的一些随笔 &amp; 踩坑日记 写在前面在平时日常开发中，总会遇到一些问题和值得注意的地方，及时mark下来以防下一次还遇到会忘记。">
+<meta property="og:description" content="入门的开发者狂热的学习者摄影爱好者~">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-08-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-10T07:23:40.000Z">
 <meta property="article:author" content="Gabriel">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="踩坑日记">
-<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Gabriel&#39;s blog" type="application/atom+xml">
@@ -167,193 +162,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Spring 随笔&amp;踩坑日记" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      关于 Spring 的一些随笔 &amp; 踩坑日记
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+
+<a href="/2020/09/10/Spring%20%E9%9A%8F%E7%AC%94&%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2020-09-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-10</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/09/10/Spring%20%E9%9A%8F%E7%AC%94&%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">关于 Spring 的一些随笔 &amp; 踩坑日记</a>
     </h1>
   
 
-        
-        
-	<!-- 不蒜子统计 -->
-	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
-		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
-	</span>
-
-
-<a href="/2020/08/10/Spring%20%E9%9A%8F%E7%AC%94&%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-08-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="关于-Spring-的一些随笔-amp-踩坑日记"><a href="#关于-Spring-的一些随笔-amp-踩坑日记" class="headerlink" title="关于 Spring 的一些随笔 &amp; 踩坑日记"></a>关于 Spring 的一些随笔 &amp; 踩坑日记</h3><blockquote>
-<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>在平时日常开发中，总会遇到一些问题和值得注意的地方，及时mark下来以防下一次还遇到会忘记。</p>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="关于-Spring-Data-JPA"><a href="#关于-Spring-Data-JPA" class="headerlink" title="关于 Spring Data JPA"></a>关于 Spring Data JPA</h3><ul>
-<li><p>Spring Data JPA 级联关系</p>
-<p>CascadeType：</p>
-<ul>
-<li>ALL</li>
-<li>DETACH</li>
-<li>REMOVE</li>
-<li>MERGE</li>
-<li>REFRESH</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>Spring Data JPA 枚举类</p>
-<p>jpa 对枚举类的支持，要加注解 @Enumerated(EnumType.STRING)，EnumType 有两种，STRING 和 ORIGINAL ，分别对于了该枚举类在数据库中存储的形式为字符串还是数字。</p>
-</li>
-</ul>
-<ul>
-<li><p>Spring Data JPA 主键id</p>
-<p>对于不同类型的数据库，对于 id 的策略也是不同的，通过 @GeneratedValue(strategy = Generation.xxx) 来决定，有 4 种 GenerationType 策略：</p>
-<ul>
-<li><p>Generation.TABLE</p>
-<p>使用一个特定的数据库表格来保存主键。（能在不同数据库之间很好的移植）</p>
-</li>
-<li><p>Generation.SEQUENCE</p>
-<p>根据底层数据库的序列来生成主键，条件是数据库支持序列。（Oracle 就用这玩意，因为 Oracle 不支持自增主键)</p>
-</li>
-<li><p>Generation.IDENTITY</p>
-<p>由数据库自动生成主键，比如 mysql 用的比较多的 auto incresement 一般就用这玩意</p>
-</li>
-<li><p>Generation.AUTO</p>
-<p>主键由程序控制。（JPA 的默认选项）</p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>Spring Data JPA 时间类型</p>
-<p>用 @PrePersist 构造一个函数</p>
-<p>just like that</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">XXX</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">private</span> Date createdAt;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@PrePersis</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">createdAt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.createdAt = <span class="keyword">new</span> Date();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>Spring Data JPA 会默认将字段修改为 下划线命名，而不是原本字段的驼峰命名</p>
-<p>在 application.properties 加入一句</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># SpringData JPA 使用的默认命名策略是:ImprovedNamingStrategy, 这样会使驼峰变成下划线命名</span></span><br><span class="line"><span class="comment"># 修改成 PhysicalNamingStrategyStandardImpl 即可</span></span><br><span class="line">spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-</li>
-</ul>
-<h3 id="关于-JDBC"><a href="#关于-JDBC" class="headerlink" title="关于 JDBC"></a>关于 JDBC</h3><ul>
-<li><p>Connection 对象</p>
-<p>server 端与 client 端的所有交互都是由 Connection 对象完成的</p>
-<p>Connection 常用方法（From Java3y）：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建向数据库发送sql的statement对象。</span></span><br><span class="line">createcreateStatement()</span><br><span class="line"><span class="comment">//创建向数据库发送预编译sql的PrepareSatement对象。</span></span><br><span class="line">prepareStatement(sql)</span><br><span class="line"><span class="comment">//创建执⾏存储过程的callableStatement对象</span></span><br><span class="line">prepareCall(sql)</span><br><span class="line"><span class="comment">//设置事务⾃动提交</span></span><br><span class="line">setAutoCommit(<span class="keyword">boolean</span> autoCommit)</span><br><span class="line"><span class="comment">//提交事务</span></span><br><span class="line">commit()</span><br><span class="line"><span class="comment">//回滚事务</span></span><br><span class="line">rollback()</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>Statement对象</p>
-<p>Statement对象⽤于向数据库发送Sql语句，对数据库的增删改查都可以通过此对象发送sql语句完成。 Statement对象的常⽤⽅法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询</span></span><br><span class="line">executeQuery(String sql)</span><br><span class="line"><span class="comment">//增删改</span></span><br><span class="line">executeUpdate(String sql)</span><br><span class="line"><span class="comment">//任意sql语句都可以，但是⽬标不明确，很少⽤</span></span><br><span class="line">execute(String sql)</span><br><span class="line"><span class="comment">//把多条的sql语句放进同⼀个批处理中</span></span><br><span class="line">addBatch(String sql)</span><br><span class="line"><span class="comment">//向数据库发送⼀批sql语句执⾏</span></span><br><span class="line">executeBatch()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>ResultSet 对象</p>
-<p>ResultSet对象代表Sql语句的执行结果，当Statement对象执⾏executeQuery()时，会返回⼀个 ResultSet对象 </p>
-<p>ResultSet对象维护了⼀个数据⾏的游标【简单理解成指针】，调⽤ResultSet.next()⽅法，可以让游标 指向具体的数据⾏，进⾏获取该⾏的数据</p>
-<p>常用方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取任意类型的数据</span></span><br><span class="line">getObject(String columnName)</span><br><span class="line"><span class="comment">//获取指定类型的数据【各种类型，查看API】</span></span><br><span class="line">getString(String columnName)</span><br><span class="line"><span class="comment">//对结果集进⾏滚动查看的⽅法</span></span><br><span class="line">next()</span><br><span class="line">Previous()</span><br><span class="line">absolute(<span class="keyword">int</span> row)</span><br><span class="line">beforeFirst()</span><br><span class="line">afterLast()</span><br></pre></td></tr></table></figure>
-
-
-
-
-</li>
-</ul>
-<h3 id="关于-MyBatis"><a href="#关于-MyBatis" class="headerlink" title="关于 MyBatis"></a>关于 MyBatis</h3><ul>
-<li><p>Mapper 中 resultMap 里 javaType 和 ofType 的区别</p>
-<p>JavaType和ofType都是用来指定对象类型的，但是JavaType是用来指定pojo中属性的类型，而ofType指定的是映射到list集合属性中pojo的类型。</p>
-</li>
-</ul>
-<ul>
-<li><p>Mapper 中一次插入多条数据 foreach 用法</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fnlingnzb-learner/p/10566452.html">一个写的非常非常详细的博客</a></p>
-</li>
-</ul>
-<ul>
-<li><p>在大多数情况下，JPA 可以不用手写 sql，而 MyBatis 的 sql 语句都要自己完成，这就给sql语句带来了很大的优化空间，注意 sql 语句的优化！</p>
-<p>例如：</p>
-<ul>
-<li>比如查询时，尽量避免全表扫描，首先应该考虑在 where 或 order by 设计的列上建立索引。</li>
-<li>避免在 where 子句中使用 or 连接、 null 判断、!=  &lt;&gt;判断，这些情况都会导致引擎放弃索引而选择全表扫描</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/loongshawn/article/details/50496460">MyBatis JdbcType 与Oracle、MySql数据类型对应关系详解</a>——下次遇到不迷路~</li>
-</ul>
-<ul>
-<li>为什么要在 Mapper 接口的参数使用 @Param</li>
-</ul>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gu-bin/p/10503824.html">MyBatis Mapper 动态sql语句 where、if、foreach</a></li>
-</ul>
-<h3 id="关于-ThymeLeaf"><a href="#关于-ThymeLeaf" class="headerlink" title="关于 ThymeLeaf"></a>关于 ThymeLeaf</h3><h3 id="未完待续。。"><a href="#未完待续。。" class="headerlink" title="未完待续。。"></a>未完待续。。</h3>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢你请我喝咖啡<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wechat.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -373,138 +213,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://ggggeorge-gao.github.io.git.com/2020/08/10/Spring%20%E9%9A%8F%E7%AC%94&%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/08/18/LeetCode%E9%A2%98%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          我的LeetCode题解
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/07/23/LeetCode297.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LeetCode297. 二叉树的序列化与反序列化——层序遍历</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-Spring-%E7%9A%84%E4%B8%80%E4%BA%9B%E9%9A%8F%E7%AC%94-amp-%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">关于 Spring 的一些随笔 &amp; 踩坑日记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-number">2.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-Spring-Data-JPA"><span class="toc-number">3.</span> <span class="toc-text">关于 Spring Data JPA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-JDBC"><span class="toc-number">4.</span> <span class="toc-text">关于 JDBC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-MyBatis"><span class="toc-number">5.</span> <span class="toc-text">关于 MyBatis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-ThymeLeaf"><span class="toc-number">6.</span> <span class="toc-text">关于 ThymeLeaf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%E3%80%82%E3%80%82"><span class="toc-number">7.</span> <span class="toc-text">未完待续。。</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-  <div id="SOHUCS" sid="Spring 随笔&amp;踩坑日记" ></div> 
-<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
-<script type="text/javascript">
-    window.changyan.api.config({
-        appid: "cyv0SRSF6",
-        conf: "9619a903f3191ed90e3543a17a4fe59b"
-    });
-</script>
-</script>
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -539,8 +260,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
